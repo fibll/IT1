@@ -20,21 +20,47 @@ footer {
 </style>
 </head>
   <body>
-
-
+	
 	<?php
-		// filename should be given by start
-		//$fileName = $_POST["fileName"];
-		$fileName = "uploads/foo.txt";		
+		$target_dir = "uploads/";
+		$target_file = $target_dir . basename($_FILES["fileToUpload"]	["name"]);
+		$uploadOk = 1;
+		$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+
 		
 		// Check if file already exists
-		if (!file_exists($fileName)) {
-		    echo "Sorry, file does not exists.";
+		if (file_exists($target_file)) {
+		    echo "Sorry, file already exists.";
 		    $uploadOk = 0;
 		}
 
+		// Check file size
+		if ($_FILES["fileToUpload"]["size"] > 500000) {
+		    echo "Sorry, your file is too large.";
+		    $uploadOk = 0;
+		}
+		
+		// Allow certain file formats
+		if($imageFileType != "txt") {
+		    echo "Sorry, only txt files are allowed.";
+		    $uploadOk = 0;
+		}
+
+		// Check if $uploadOk is set to 0 by an error
+		if ($uploadOk == 0) {
+		    echo "Sorry, your file was not uploaded.";
+
+		// if everything is ok, try to upload file
+		} else {
+		    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+		        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+		    } else {
+		        echo "Sorry, there was an error saving your uploaded file.";
+		    }
+		}
+
 		// open file
-		$file = fopen($fileName, "r") or die("<br>Unable to open file!");		
+		$file = fopen("uploads/".$_FILES["fileToUpload"]["name"], "r") or die("<br>Unable to open file!");		
 		
 		// get first line
 		$string = fgets($file)."<br>";
@@ -50,7 +76,9 @@ footer {
 
 			// get the next line
 			$string = fgets($file)."<br>";
-		}		
+		}
+
+		echo "<br><br><br>".$answers[5][0];		
 
 		fclose($file);
 
@@ -58,10 +86,15 @@ footer {
 		$random = array(-1, -1, -1);
 		$rand_word = rand(0, sizeof($answers)-1 );
 
-		// print POST'ed data
-		//$player = $_POST["player"];
-		//echo $player;
 	?>
+
+
+	<form action="test.php" method="post" enctype="multipart/form-data">
+	    Select image to upload:
+	    <input type="file" name="fileToUpload" id="fileToUpload">
+	    <input type="submit" value="Upload Image" name="submit">
+	</form>
+
 
 
     	<h1>Lessons</h1>
