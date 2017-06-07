@@ -20,17 +20,25 @@ flex-direction: row;
 </style>
 </head>
   <body>
+	<?php
+		$lesson = $_POST["lesson"];
+	?>
+
     <h1>Statistic</h1>    
     <footer>
+	<start>
+            <form action="start.php" method="POST">
+		<input type="hidden" name="lesson" value="<?php echo $lesson;?>" />
+                <input type="submit" value="start" />
+            </form>
+	</start>
         <forward>
-            <form action="lessons.php">
+            <form action="lessons.php" method="POST">
+		<input type="hidden" name="lesson" value="<?php echo $lesson;?>" />
                 <input type="submit" value="lessons" />
             </form>
         </forward>
         <statistic>
-            <form action="start.php">
-                <input type="submit" value="start" />
-            </form>
         </statistic>
 	</footer>
   </body>

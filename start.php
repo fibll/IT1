@@ -20,29 +20,67 @@ footer {
 </style>
 </head>
   <body>
+	<?php
+	  // read info where it is coming from
+	  $from = $_POST["from"];
+	  $lesson = $_POST["lesson"];
+	?>
+
     <h1>Start</h1>
-        <form action="lessons.php" method="POST">
+	<!--        
+	Informationen die immer gegeben sein sollten:
+	- welche lesson ist aktuell -> nur auf den Lesson seiten? weg von start->staticstic->lesson??
+	- gleiche session? -> sessionID
+	- welche Seite kam vorher?
+	
+	<form action="lessons.php" method="POST">
 		<label>Player: </label>
             	<input name="player" type="text" size="25" />
 		<input name="mySubmit" type="submit" value="Submit!" />
         </form>
-	<footer>
-        <forward>
-            <form action="lessons.php">
-                <input type="submit" value="lessons" />
-            </form>
-        </forward>
-        <statistic>
-            <form action="statistic.php">
-                <input type="submit" value="statistic" />
-            </form>
-        </statistic>
+	-->
+
+    <?php
+
+	// get in uploaded lessons
+	$file = fopen("lessons.info", "r");	
+	$string = fgets($file);
+		
+	for($i = 0; !feof($file); $i++)
+	{
+		// read in the ; seperated words			
+		$lessons[$i] = $string;
+		$lessons[$i] = str_replace("\n", "", $lessons[$i]);
+
+		// get the next line
+		$string = fgets($file);
+	}
+	
+	for($i = 0; $i < sizeof($lessons); $i++)
+	{
+		echo "
+		    <form action=\"lessons.php\" method=\"POST\">
+		    <input type=\"hidden\" name=\"lesson\" value=\"".$lessons[$i]."\">
+        	    <input type=\"submit\" value=\"".$lessons[$i]."\" />
+       		    </form>";
+	}	
+    ?>
+
+    <footer>
         <setup>
-            <form action="setup.php">
+            <form action="setup.php" method="POST">
+		<input type="hidden" name="from" value="start">
+		<input type="hidden" name="lesson" value="<?php echo $lesson;?>" />
                 <input type="submit" value="setup" />
             </form>
         </setup>
-	</footer>
+        <statistic>
+            <form action="statistic.php" method="POST">
+		<input type="hidden" name="lesson" value="<?php echo $lesson;?>" />
+		<input type="submit" value="statistic" />
+            </form>
+        </statistic>
+    </footer>
   </body>
 </html>
 

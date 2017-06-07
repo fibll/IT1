@@ -1,32 +1,35 @@
 <!DOCTYPE html>
 <html>
-<head>
-<style> 
-//body {
-//	width: 10px;
-//	min-height: 50px;
-//	display: flex;
-//	flex-direction: row;
-//}
+  <head>
+    <style> 
+    //body {
+    //	width: 10px;
+    //	min-height: 50px;
+    //	display: flex;
+    //	flex-direction: row;
+    //}
 
-footer {
+    footer {
 	width: 5em;
 	height: 10em;
 	display: flex;
 	flex-direction: row;
-}
+    }
 
 
-</style>
-</head>
+    </style>
+  </head>
+
   <body>
-
-
 	<?php
+	  	// read info where it is coming from
+	  	$from = $_POST["from"];
+		$lesson = $_POST["lesson"];
+
 		// filename should be given by start
 		//$fileName = $_POST["fileName"];
-		$fileName = "uploads/foo.txt";		
-		
+		$fileName = $_POST["lesson"];
+
 		// Check if file already exists
 		if (!file_exists($fileName)) {
 		    echo "Sorry, file does not exists.";
@@ -37,19 +40,15 @@ footer {
 		$file = fopen($fileName, "r") or die("<br>Unable to open file!");		
 		
 		// get first line
-		$string = fgets($file)."<br>";
+		$string = fgets($file);
 
 		for($i = 0; !feof($file); $i++)
 		{
-			// remove line escapor in the end
-			//$string = trim(preg_replace('/\s\s+/', ' ', $string));
-			//$string = str_replace(array("\r\n", "\r"), "", $string);
-
 			// read in the ; seperated words			
 			$answers[$i] = explode(';', $string);
 
 			// get the next line
-			$string = fgets($file)."<br>";
+			$string = fgets($file);
 		}		
 
 		fclose($file);
@@ -61,17 +60,16 @@ footer {
 		// print POST'ed data
 		//$player = $_POST["player"];
 		//echo $player;
-	?>
+	
 
+		// Question
+    		echo "<h1>Lessons</h1>
+		<question>
+			<p>Was ist die korrekte Übersetzung für \"".$answers[$rand_word][0]."\"?</p>
+		</question>
+		<form action=\"result.php\" method=\"POST\">";
+		
 
-    	<h1>Lessons</h1>
-	<question>
-		<p>Was heißt <?php echo $answers[$rand_word][0]; ?> auf Englisch?</p>
-	</question>
-	<form action="result.php" method="POST">
-
-
-	  <?php
 		// get random value (no equal) into random variables
 		// bring in the correct answer
 		$random[rand(0,2)] = $rand_word;
@@ -95,26 +93,55 @@ footer {
 			
 			// create radio options
 	 		echo "<input type=\"radio\" name=\"answer\" value=\""
-			.$answers[$random[$i]][1]."\"> ".$answers[$random[$i]][1]."<br>";
+				.$answers[$random[$i]][1]."\"> "
+				.$answers[$random[$i]][1]."<br>";
 		}
 	  ?>	
 
-
-	  <input name="mySubmit" type="submit" value="next" />
+	  <!-- should be handled from the forward button -->
+	  <!--
+		<input name="mySubmit" type="submit" value="next" />
+	  -->
 	</form>
     
     <footer>
-        <forward>
-            <form action="result.php">
-                <input type="submit" value="forward" />
+        <start>
+            <form action="start.php" method="POST">
+		<input type="hidden" name="lesson" value="<?php echo $lesson;?>" />
+                <input type="submit" value="start" />
             </form>
-        </forward>
+        </start>
         <statistic>
-            <form action="statistic.php">
+            <form action="statistic.php" method="POST">
+		<input type="hidden" name="lesson" value="<?php echo $lesson;?>" />
                 <input type="submit" value="statistic" />
             </form>
         </statistic>
+        <forward>
+            <form action="result.php" method=POST>
+
+			
+		<?php
+	  	// should be handled from the forward button
+		echo "<input type=\"hidden\" name=\"solution\" value=\""
+			.$answers[$rand_word][1]."\">";
+	
+		for($i = 0; $i < 3; $i++)
+		{
+		  echo "<input type=\"hidden\" name=\"poss".$i."\" value=\""
+			.$answers[$random[$i]][1]."\">";
+		}
+		?>
+
+		<input type="hidden" name="lesson" value="<?php echo $lesson;?>" />
+                <input type="submit" value="forward" />
+            </form>
+        </forward>
     </footer>
   </body>
 </html>
+
+<!--  
+	  echo "</form>";
+-->
 
