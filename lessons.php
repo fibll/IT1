@@ -83,6 +83,7 @@
 		$random[rand(0,$QNUM-1)] = $rand_word;
 
 		
+//============= somethings still wrong, there are cases where doubles exist =========================================================================================
 		// fill the other with other answers
 		for($i = 0; $i < $QNUM; $i++)
 		{
@@ -145,8 +146,3 @@
     </footer>
   </body>
 </html>
-
-<!--  
-	  echo "</form>";
--->
-

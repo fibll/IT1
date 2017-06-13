@@ -43,7 +43,7 @@ footer {
     <?php
 
 	// get in uploaded lessons
-	$file = fopen("lessons.info", "r");	
+	$file = fopen("lessons.data", "r");	
 	$string = fgets($file);
 		
 	for($i = 0; !feof($file); $i++)

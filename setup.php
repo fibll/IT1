@@ -37,25 +37,25 @@ footer {
 	  {
 		// Check if file already exists
 		if (file_exists($target_file)) {
-		    echo "<br>Sorry, file already exists.";
+		    echo "<br>Die Datei existiert bereits.";
 		    $uploadOk = 0;
 		}
 
 		// Check file size
 		if ($_FILES["fileToUpload"]["size"] > 500000) {
-		    echo "<br>Sorry, your file is too large.";
+		    echo "<br>Datei ist zu groß.";
 		    $uploadOk = 0;
 		}
 		
 		// Allow certain file formats
 		if($imageFileType != "txt") {
-		    echo "<br>Sorry, only txt files are allowed.";
+		    echo "<br>Die Dateiendung muss txt sein.";
 		    $uploadOk = 0;
 		}
 
 		// Check if $uploadOk is set to 0 by an error
 		if ($uploadOk == 0) {
-		    echo "<br>Sorry, your file was not uploaded.";
+		    echo "<br>Datei wurde nicht hochgeladen.";
 
 		// if everything is ok, try to upload file
 		} 
@@ -63,15 +63,21 @@ footer {
 		{
 		    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file))
 		    {
-		        echo "<br>The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+		        echo "<br>Die Datei ". basename( $_FILES["fileToUpload"]["name"]). " wurde hochgeladen.";
 
 			// write the new path in the lessons.info
-			$file = fopen("lessons.info", "a") or die("<br>Unable to open file!");		fwrite($file, $target_file."\n");
+			$file = fopen("lessons.data", "a") or die("<br>Die Lessons-Datei kann nicht geöffnet werden!");		
+			fwrite($file, $target_file."\n");
+			fclose($file);
+
+			// write into statistic file
+			$file = fopen("statistic.data", "a") or die("<br>Die Statistik-Datei kann nicht geöffnet werden!");
+			fwrite($file, $target_file.";0;0\n");
 			fclose($file);
 		    } 
 		    else 
 		    {
-		        echo "<br>Sorry, there was an error saving your uploaded file.";
+		        echo "<br>Es gab einen Fehler beim speichern der hochgeladenen Datei.";
 		    }
 		}
 	  }

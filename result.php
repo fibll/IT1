@@ -35,19 +35,64 @@ flex-direction: row;
 	  $poss4 = $_POST["poss4"];
 	  $poss5 = $_POST["poss5"];
 
+	  $info = array(2);
 
-	  echo "Lesson: ___".$lesson."___<br><br>";
-	  echo "Solution: ".$solution;
-	  echo "<br>poss0: ".$poss0;
-	  echo "<br>poss1: ".$poss1;
-	  echo "<br>poss2: ".$poss2;
-	  echo "<br>poss2: ".$poss3;
-	  echo "<br>poss2: ".$poss4;
-	  echo "<br>poss2: ".$poss5;
-	  echo "<br>Answer: ".$answer;
+
+	// get .stat fileName
+	$lessons_name = str_replace(".txt", "", $lesson);
+	$lessons_name = str_replace("uploads/", "", $lessons_name);
+	$fileName = $lessons_name.".stat";
+
+	// open statistic file	
+	//$file = fopen($fileName, "r") or fopen($fileName, "w+") or die("<br>Die Datei kann nicht geöffnet werden!");
+	$file = fopen($fileName, "c+") or die("<br>Die Datei kann nicht geöffnet werden!");
+
+	// get content
+	$string = fgets($file);
+	fclose($file);
+
+	echo "string: ".$string."<br>";		
+
+	if($string != "")
+	{
+	  echo "read<br>";
+	  $line = explode(';', $string);
+	}
+	else
+	{
+	  echo "create<br>";
+	  $line[0] = 0;
+	  $line[1] = 0;
+	}
+
+	// correct the numbers of the statistic
+	if(strcmp($answer, $solution) == 0)
+	{
+	  echo "Anwort richtig!<br>";
+	  $line[0] += 1;
+	}
+	else
+	{
+	  echo "Anwort falsch!<br>";
+	  $line[1] += 1;
+	}
+
+	$output = $line[0].";".$line[1];
+
+	echo "output: ".$line[0].";".$line[1]."\n";
+
+
+	// open statistic file	
+	$file = fopen($fileName, "w") or die("<br>Die Datei kann nicht zum schreiben geöffnet werden!");
+
+	// write content
+	fwrite($file, $output);
+
+	fclose($file);
+	
+
     ?>
     <h1>Results</h1>
-
 
         <forward>
             <form action="lessons.php" method="POST">
