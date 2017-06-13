@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset = "UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
 		<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -18,17 +19,20 @@
 
 			<!-- footer -->
 			<div data-role="footer">
-				<statistic>
-					<form action="statistic.php">
-						<input type="submit" value="Statistik" />
-					</form>
-				</statistic>
-				<setup>
-					<form action="setup.php">
-						<input type="hidden" name="from" value="start">
-						<input type="submit" value="Setup" />
-					</form>
-				</setup>
+				<div data-role="controlgroup" data-type="horizontal">
+					<statistic>
+						<form action="statistic.php">
+							<input type="submit" value="Statistik" />
+						</form>
+					</statistic>
+
+					<setup>
+						<form action="setup.php">
+							<input type="hidden" name="from" value="start">
+							<input type="submit" value="Setup" />
+						</form>
+					</setup>
+				</div><br>
 			</div>
 		</div> 
 	</body>
