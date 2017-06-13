@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset = "UTF-8"/>
 <style> 
 //body {
 //	width: 10px;
@@ -24,23 +25,21 @@ flex-direction: row;
 		$lesson = $_POST["lesson"];
 	?>
 
-    <h1>Statistic</h1>    
+    <h1>Statistik</h1>    
     <footer>
-	<start>
+        <start>
             <form action="start.php" method="POST">
 		<input type="hidden" name="lesson" value="<?php echo $lesson;?>" />
-                <input type="submit" value="start" />
+                <input type="submit" value="Auswahl" />
             </form>
-	</start>
-        <forward>
-            <form action="lessons.php" method="POST">
-		<input type="hidden" name="lesson" value="<?php echo $lesson;?>" />
-                <input type="submit" value="lessons" />
+        </start>
+        <setup>
+            <form action="setup.php">
+		<input type="hidden" name="from" value="start">
+                <input type="submit" value="Setup" />
             </form>
-        </forward>
-        <statistic>
-        </statistic>
-	</footer>
+        </setup>
+    </footer>
   </body>
 </html>
 

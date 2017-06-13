@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset = "UTF-8"/>
 <style> 
 //body {
 //	width: 10px;
@@ -23,7 +24,6 @@ footer {
 	<?php
 	  // read info where it is coming from
 	  $from = $_POST["from"];
-	  $lesson = $_POST["lesson"];
 	?>
 
     <h1>Start</h1>
@@ -52,6 +52,10 @@ footer {
 		$lessons[$i] = $string;
 		$lessons[$i] = str_replace("\n", "", $lessons[$i]);
 
+		// get printing name
+		$lessons_name[$i] = str_replace(".txt", "", $lessons[$i]);
+		$lessons_name[$i] = str_replace("uploads/", "", $lessons_name[$i]);
+
 		// get the next line
 		$string = fgets($file);
 	}
@@ -61,25 +65,23 @@ footer {
 		echo "
 		    <form action=\"lessons.php\" method=\"POST\">
 		    <input type=\"hidden\" name=\"lesson\" value=\"".$lessons[$i]."\">
-        	    <input type=\"submit\" value=\"".$lessons[$i]."\" />
+        	    <input type=\"submit\" value=\"".$lessons_name[$i]."\" />
        		    </form>";
 	}	
     ?>
 
     <footer>
-        <setup>
-            <form action="setup.php" method="POST">
-		<input type="hidden" name="from" value="start">
-		<input type="hidden" name="lesson" value="<?php echo $lesson;?>" />
-                <input type="submit" value="setup" />
-            </form>
-        </setup>
         <statistic>
-            <form action="statistic.php" method="POST">
-		<input type="hidden" name="lesson" value="<?php echo $lesson;?>" />
-		<input type="submit" value="statistic" />
+            <form action="statistic.php">
+		<input type="submit" value="Statistik" />
             </form>
         </statistic>
+        <setup>
+            <form action="setup.php">
+		<input type="hidden" name="from" value="start">
+                <input type="submit" value="Setup" />
+            </form>
+        </setup>
     </footer>
   </body>
 </html>

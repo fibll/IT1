@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset = "UTF-8"/>
 <style> 
 //body {
 //	width: 10px;
@@ -26,7 +27,6 @@ footer {
 	<?php
 	  // read info where it is coming from
 	  $from = $_POST["from"];
-	  $lesson = $_POST["lesson"];
 		
 	  $target_dir = "uploads/";
 	  $target_file = $target_dir . basename($_FILES["fileToUpload"]	["name"]);
@@ -82,19 +82,24 @@ footer {
 	    Select image to upload:
 	    <input type="file" name="fileToUpload" id="fileToUpload">
 	    <input type="hidden" name="from" value="setup">
-	    <input type="hidden" name="lesson" value="<?php echo $lesson;?>" />
 	    <input type="submit" value="Upload File" name="submit">
 	</form>
     </header>
 
     <footer>
-        <setup>
+         <start>
             <form action="start.php" method="POST">
 		<input type="hidden" name="lesson" value="<?php echo $lesson;?>" />
-                <input type="submit" value="start" />
+                <input type="submit" value="Auswahl" />
             </form>
-        </setup>
-	</footer>
+        </start>
+        <statistic>
+            <form action="statistic.php" method="POST">
+		<input type="hidden" name="lesson" value="<?php echo $lesson;?>" />
+                <input type="submit" value="Statistik" />
+            </form>
+        </statistic>
+    </footer>
   </body>
 </html>
 
