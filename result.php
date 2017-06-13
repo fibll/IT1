@@ -43,8 +43,7 @@ flex-direction: row;
 	$lessons_name = str_replace("uploads/", "", $lessons_name);
 	$fileName = $lessons_name.".stat";
 
-	// open statistic file	
-	//$file = fopen($fileName, "r") or fopen($fileName, "w+") or die("<br>Die Datei kann nicht geöffnet werden!");
+	// open statistic file
 	$file = fopen($fileName, "c+") or die("<br>Die Datei kann nicht geöffnet werden!");
 
 	// get content

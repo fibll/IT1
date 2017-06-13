@@ -1,9 +1,0 @@
-Hallo;Allô
-Bart;la barbe
-Haus;la maison
-Wasser;l'eau
-Freiheit;la liberté
-Natur;le naturel
-Tisch;la casserole
-Löffel;la cuillère
-Gewürze;l'épice
