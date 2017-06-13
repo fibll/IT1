@@ -22,22 +22,12 @@
 	</head>
 
 	<body>
+		<h1>Start</h1>
+
+
 		<?php
 			// read info where it is coming from
 			$from = $_POST["from"];
-			?>
-
-		<h1>Start</h1>
-
-		<!--	
-		<form action="lessons.php" method="POST">
-			<label>Player: </label>
-				<input name="player" type="text" size="25" />
-				<input name="mySubmit" type="submit" value="Submit!" />
-		</form>
-		-->
-
-		<?php
 	
 			// get in uploaded lessons
 			$file = fopen("lessons.data", "r");	

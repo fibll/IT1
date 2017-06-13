@@ -22,6 +22,8 @@
 	</head>
 
 	<body>
+		<h1>Lessons</h1>
+
 		<?php
 			// read info where it is coming from
 			$from = $_POST["from"];
@@ -71,8 +73,7 @@
 	
 
 			// Question
-			echo "<h1>Lessons</h1>
-				<question>
+			echo "<question>
 					<p>Was ist die korrekte Übersetzung für \"".$answers[$rand_word][0]."\"?</p>
 				</question>
 				<form action=\"result.php\" method=\"POST\">";
@@ -82,8 +83,8 @@
 			// bring in the correct answer
 			$random[rand(0,$QNUM-1)] = $rand_word;
 
-		
-			//============= somethings still wrong, there are cases where doubles exist ======================================================================
+			echo "<br>";
+
 			// fill the other with other answers
 			for($i = 0; $i < $QNUM; $i++)
 			{
@@ -94,7 +95,7 @@
 					// check if the number is already used
 					for($j = 0; $j < $i; $j++)
 					{
-						if($random[$i] == $random[$j] && $i != $j)
+						if(($random[$i] == $random[$j] && $i != $j) || $random[$i] == $rand_word)
 						{
 							$random[$i] = -1;
 						}

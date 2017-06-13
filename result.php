@@ -26,6 +26,7 @@
 			// read info where it is coming from
 			$from = $_POST["from"];
 			$lesson = $_POST["lesson"];
+			echo ""
 
 			$answer = $_POST["answer"];
 			$solution = $_POST["solution"];
