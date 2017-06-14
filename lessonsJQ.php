@@ -2,28 +2,23 @@
 <html>
 	<head>
 		<meta charset = "UTF-8"/>
-		<style> 
-			//body {
-			//	width: 10px;
-			//	min-height: 50px;
-			//	display: flex;
-			//	flex-direction: row;
-			//}
 
-			footer {
-				width: 5em;
-				height: 10em;
-				display: flex;
-				flex-direction: row;
-			}
-
-
-		</style>
+		<!-- jQuery stuff -->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+		<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	</head>
 
-	<body>
-		<h1>Lessons</h1>
+	<body>	
 
+		<div data-role="page">
+		<div data-role="header">
+			<h1>Lesson</h1>
+		</div>
+		<div data-role="main" class="ui-content">
+
+		<!-- main content -->
 		<?php
 			// read info where it is coming from
 			$from = $_POST["from"];
@@ -76,8 +71,16 @@
 			echo "<question>
 					<p>Was ist die korrekte Übersetzung für \"".$answers[$rand_word][0]."\"?</p>
 				</question>
-				<form action=\"result.php\" method=\"POST\">";
-		
+				<form action=\"resultJQ.php\" method=\"POST\">";
+				//<div data-role=\"controlgroup\" data-type=\"vertical\">";
+			
+			/*
+				echo "<div data-role=\"main\" class=\"ui-content\">
+	<form method=\"post\" action=\"/action_page_post.php\">
+		<fieldset data-role=\"controlgroup\">
+			<legend>Was ist die korrekte Übersetzung für \"".$answers[$rand_word][0]."\"?</legend>";
+			*/
+
 
 			// get random value (no equal) into random variables
 			// bring in the correct answer
@@ -105,12 +108,20 @@
 				echo "<input type=\"radio\" name=\"answer\" value=\""
 					.$answers[$random[$i]][1]."\"> "
 					.$answers[$random[$i]][1]."<br>";
+				/*
+				echo "<label for=\"male\">Male</label>
+				<input type=\"radio\" name=\"gender\" id=\"male\" value=\"male\">";
+				*/
 			}
 
 			// create forward button
+			//echo "</fieldset>
+				//	<input type=\"Senden\" data-inline=\"true\" value=\"Submit\">";
+
 			echo "<input type=\"hidden\" name=\"solution\" value=\""
 				.$answers[$rand_word][1]."\">";
-	
+
+
 			for($i = 0; $i < $QNUM; $i++)
 			{
 				echo "<input type=\"hidden\" name=\"poss".$i."\" value=\""
@@ -119,29 +130,54 @@
 
 			echo "<input type=\"hidden\" name=\"lesson\" value=\"".$lesson."\" />";
 			echo "<input type=\"submit\" value=\"Senden\" />";
+	
+
 			echo "</form>";
+//			echo "</div>";
+
 		?>	
+		
 
 
-		<footer>
-			<start>
-				<form action="start.php" method="POST">
-					<input type="hidden" name="lesson" value="<?php echo $lesson;?>" />
-					<input type="submit" value="Auswahl" />
-				</form>
-			</start>
-			<statistic>
-				<form action="statistic.php" method="POST">
-					<input type="hidden" name="lesson" value="<?php echo $lesson;?>" />
-					<input type="submit" value="Statistik" />
-				</form>
-			</statistic>
-			<setup>
-				<form action="setup.php">
-					<input type="hidden" name="from" value="start">
-					<input type="submit" value="Setup" />
-				</form>
-			</setup>
-		</footer>
+		</div>
+
+			<!-- footer -->
+			<div data-role="footer"><div data-role="navbar"><ul><li>
+
+				<!-- Option 1 -->
+				<start>
+					<form action="startJQ.php" method="POST">
+						<input type="hidden" name="lesson" value="<?php echo $lesson;?>" />
+						<input type="submit" value="Auswahl" />
+					</form>
+				</start>
+
+			</li><li>
+
+				<!-- Option 2 -->
+				<statistic>
+					<form action="statisticJQ.php">
+						<input type="submit" value="Statistik" />
+					</form>
+				</statistic>
+
+			</li><li>
+
+				<!-- Option 3 -->
+				<setup>
+					<form action="setupJQ.php">
+						<input type="hidden" name="from" value="start">
+						<input type="submit" value="Setup" />
+					</form>
+				</setup>
+
+			</li></ul></div></div>
+
+
+		</div> 
 	</body>
 </html>
+
+​
+
+

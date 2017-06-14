@@ -2,27 +2,24 @@
 <html>
 	<head>
 		<meta charset = "UTF-8"/>
-		<style> 
-			//body {
-			//	width: 10px;
-			//	min-height: 50px;
-			//	display: flex;
-			//	flex-direction: row;
-			//}
 
-			footer {
-				width: 5em;
-				height: 10em;
-				display: flex;
-				flex-direction: row;
-			}
-
-
-		</style>
+		<!-- jQuery stuff -->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+		<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	</head>
 
-	<body>
-		<?php
+	<body>	
+
+		<div data-role="page">
+		<div data-role="header">
+			<h1>Ergebnis</h1>
+		</div>
+		<div data-role="main" class="ui-content">
+
+		<!-- main content -->
+				<?php
 			// read info where it is coming from
 			$from = $_POST["from"];
 			$lesson = $_POST["lesson"];
@@ -94,37 +91,52 @@
 			fclose($file);
 		?>
 
-
-		<h1>Results</h1>
-
 		<forward>
-			<form action="lessons.php" method="POST">
+			<form action="lessonsJQ.php" method="POST">
 				<input type="hidden" name="lesson" value="<?php echo $lesson;?>" />
 				<input type="submit" value="Weiter" />
 			</form>
 		</forward>
 
+		</div>
 
-		<footer>
-			<start>
-				<form action="start.php" method="POST">
-					<input type="hidden" name="lesson" value="<?php echo $lesson;?>" />
-					<input type="submit" value="Auswahl" />
-				</form>
-			</start>
-			<statistic>
-				<form action="statistic.php" method="POST">
-					<input type="hidden" name="lesson" value="<?php echo $lesson;?>" />
-					<input type="submit" value="Statistik" />
-				</form>
-			</statistic>
-			<setup>
-				<form action="setup.php">
-					<input type="hidden" name="from" value="start">
-					<input type="submit" value="Setup" />
-				</form>
-			</setup>
-		</footer>
+			<!-- footer -->
+			<div data-role="footer"><div data-role="navbar"><ul><li>
+
+				<!-- Option 1 -->
+				<start>
+					<form action="startJQ.php" method="POST">
+						<input type="hidden" name="lesson" value="<?php echo $lesson;?>" />
+						<input type="submit" value="Auswahl" />
+					</form>
+				</start>
+
+			</li><li>
+
+				<!-- Option 2 -->
+				<statistic>
+					<form action="statisticJQ.php">
+						<input type="submit" value="Statistik" />
+					</form>
+				</statistic>
+
+			</li><li>
+
+				<!-- Option 3 -->
+				<setup>
+					<form action="setupJQ.php">
+						<input type="hidden" name="from" value="start">
+						<input type="submit" value="Setup" />
+					</form>
+				</setup>
+
+			</li></ul></div></div>
+
+
+		</div> 
 	</body>
 </html>
+
+​
+
 
