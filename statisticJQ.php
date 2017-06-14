@@ -6,43 +6,12 @@
 		<!-- jQuery stuff -->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
-		<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-		<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+		<link rel="stylesheet" href="stylesheet.css">
+		<script src="jquery1.js"></script>
+		<script src="jquery2.js"></script>
 	</head>
 
 	<body>
-		<?php
-			$lesson = $_POST["lesson"];
-
-			// read from all .stat files ==================================================================================
-
-			// get .stat fileName
-			$lessons_name = str_replace(".txt", "", $lesson);
-			$lessons_name = str_replace("uploads/", "", $lessons_name);
-			$fileName = $lessons_name.".stat";
-			
-			// open file
-			$file = fopen($fileName, "c+") or die("<br>Die Datei kann nicht geöffnet werden!");
-
-			// get content
-			$string = fgets($file);
-			if($string == "")
-			{
-				// write content
-				fwrite($file, "0;0");
-
-				// print content
-				echo $lessons_name.": richtig: 0, falsch: 0";
-			}
-			else
-			{
-				// seperate string
-				$line = explode(';', $string);
-			}
-
-			fclose($file);
-		?>
-
 		<div data-role="page">
 		<div data-role="header">
 			<h1>Statistik</h1>
@@ -50,13 +19,73 @@
 		<div data-role="main" class="ui-content">
 
 		<!-- main content -->
-		<div data-role="controlgroup" data-type="vertical">
+		<?php
+			$lesson = $_POST["lesson"];
+
+			// read from all .stat files
+			
+			// get in uploaded lessons
+			$file = fopen("lessons.data", "r");	
+			$string = fgets($file);
+
+			// read in all lines			
+			for($i = 0; !feof($file); $i++)
+			{
+				// read in the ; seperated words			
+				$lessons[$i] = $string;
+				$lessons[$i] = str_replace("\n", "", $lessons[$i]);
+	
+				// get printing name
+				$lessons_name[$i] = str_replace(".txt", "", $lessons[$i]);
+				$lessons_name[$i] = str_replace("uploads/", "", $lessons_name[$i]);
+	
+				// get the next line
+				$string = fgets($file);
+			}
+			fclose($file);
+
+			// save number of lessons
+			$lessonCount = $i;
+		?>
+
+
+			<div data-role="controlgroup" data-type="vertical">
+
 		
 		<?php
-				// print content
+
+			// read the .stat files and print the stats
+			for($i = 0; $i < $lessonCount; $i++)
+			{
 				echo "<a class=\"ui-btn\">";
-				echo $lessons_name."Richtig: ".$line[0]." / ".$line[1];
+
+				// get .stat fileName
+				$fileName = $lessons_name[$i].".stat";
+				
+				// open or create file
+				$file = fopen($fileName, "c+") or die("<br>Die Datei kann nicht geöffnet werden!");
+
+				// get content
+				$string = fgets($file);
+	
+				if($string == "")
+				{
+					// write content
+					fwrite($file, "0;0");
+	
+					// print content
+					echo $lessons_name[$i].": richtig: 0, falsch: 0";
+				}
+				else
+				{
+					// seperate string
+					$line = explode(';', $string);
+				}
+				fclose($file);
+
+				echo $lessons_name[$i].": Richtig ".$line[0]." / ".$line[1];
 				echo "</a>";
+			}
 		?>
 
 		</div>

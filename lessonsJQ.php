@@ -6,8 +6,9 @@
 		<!-- jQuery stuff -->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
-		<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-		<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+		<link rel="stylesheet" href="stylesheet.css">
+		<script src="jquery1.js"></script>
+		<script src="jquery2.js"></script>
 	</head>
 
 	<body>	
@@ -121,12 +122,8 @@
 			echo "<input type=\"hidden\" name=\"solution\" value=\""
 				.$answers[$rand_word][1]."\">";
 
-
-			for($i = 0; $i < $QNUM; $i++)
-			{
-				echo "<input type=\"hidden\" name=\"poss".$i."\" value=\""
-					.$answers[$random[$i]][1]."\">";
-			}
+			echo "<input type=\"hidden\" name=\"translation\" value=\""
+				.$answers[$rand_word][0]."\">";
 
 			echo "<input type=\"hidden\" name=\"lesson\" value=\"".$lesson."\" />";
 			echo "<input type=\"submit\" value=\"Senden\" />";

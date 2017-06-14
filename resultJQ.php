@@ -6,8 +6,9 @@
 		<!-- jQuery stuff -->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
-		<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-		<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+		<link rel="stylesheet" href="stylesheet.css">
+		<script src="jquery1.js"></script>
+		<script src="jquery2.js"></script>
 	</head>
 
 	<body>	
@@ -19,19 +20,14 @@
 		<div data-role="main" class="ui-content">
 
 		<!-- main content -->
-				<?php
+		<?php
 			// read info where it is coming from
 			$from = $_POST["from"];
 			$lesson = $_POST["lesson"];
 
 			$answer = $_POST["answer"];
 			$solution = $_POST["solution"];
-			$poss0 = $_POST["poss0"];
-			$poss1 = $_POST["poss1"];
-			$poss2 = $_POST["poss2"];
-			$poss3 = $_POST["poss3"];
-			$poss4 = $_POST["poss4"];
-			$poss5 = $_POST["poss5"];
+			$translation = $_POST["translation"];
 
 			$info = array(2);
 
@@ -46,41 +42,51 @@
 
 			// get content
 			$string = fgets($file);
-			fclose($file);
+			fclose($file);	
 
-			echo "string: ".$string."<br>";		
-
+			// was the file just created?
 			if($string != "")
 			{
-				echo "read<br>";
 				$line = explode(';', $string);
 			}
 			else
 			{
-				echo "create<br>";
 				$line[0] = 0;
 				$line[1] = 0;
 			}
 
-			// correct the numbers of the statistic
+			// correct the numbers of the statistic and display
+
+
 			if(strcmp($answer, $solution) == 0)
 			{
+				echo "<a class=\"ui-btn\" style=\"background: green; color: white;\">";
+				echo $translation."<br>";
+				echo $solution."<br>";
+				echo "</a>";
+
 				// correct answer counter
-				echo "Anwort richtig!<br>";
 				$line[0] += 1;
 			}
 			else
 			{
-				echo "Anwort falsch!<br>";
+				echo "<a class=\"ui-btn\" style=\"background: red; color: white;\";>";
+				echo $translation."<br>";
+
+				if(strcmp($answer, "") == 0)
+					echo "(keine Antwort ausgewählt!)<br>";
+				else
+					echo "<strike>".$answer."</strike><br>";
+
+				echo $solution."<br>";
+				echo "</a>";
 			}
+
 
 			// question counter
 			$line[1] += 1;
 
 			$output = $line[0].";".$line[1];
-
-			echo "output: ".$line[0].";".$line[1]."\n";
-
 
 			// open statistic file	
 			$file = fopen($fileName, "w") or die("<br>Die Datei kann nicht zum schreiben geöffnet werden!");
