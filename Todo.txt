@@ -1,0 +1,8 @@
+Todo:
+	// Fußleiste fix am unteren Ende anbringen
++ Beim lesen aus einem File kontrollieren ob html code darin steht
++ Punkt 9
++ Punkt 3
+	// Nur 5 Antwort Möglichkeiten
++ Umschaltung bei der Abfrage (Ajax)
++ Responsive design?

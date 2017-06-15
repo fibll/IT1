@@ -9,13 +9,6 @@
 		<link rel="stylesheet" href="stylesheet.css">
 		<script src="jquery1.js"></script>
 		<script src="jquery2.js"></script>
-		
-		<style>
-			asdf {
-				//position: fixed;
-				//bottom: 0;
-			}
-		</style>
 
 	</head>
 
@@ -68,7 +61,7 @@
 		</div>
 
 			<!-- footer -->
-			<asdf><div data-role="footer"><div data-role="navbar"><ul><li>
+			<div data-role="footer"><div data-role="navbar"><ul><li>
 
 				<!-- Option 1 -->
 				<statistic>
@@ -87,7 +80,7 @@
 					</form>
 				</setup>
 
-			</li></ul></div></div></asdf>
+			</li></ul></div></div>
 
 		</div> 
 	</body>

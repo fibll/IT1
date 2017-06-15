@@ -25,7 +25,7 @@
 			$from = $_POST["from"];
 			$lesson = $_POST["lesson"];
 
-			$QNUM = 6;
+			$QNUM = 5;
 
 			// filename should be given by start
 			//$fileName = $_POST["fileName"];
