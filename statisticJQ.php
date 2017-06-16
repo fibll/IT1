@@ -20,8 +20,6 @@
 
 		<!-- main content -->
 		<?php
-			$lesson = $_POST["lesson"];
-
 			// read from all .stat files
 			
 			// get in uploaded lessons
@@ -57,34 +55,38 @@
 			// read the .stat files and print the stats
 			for($i = 0; $i < $lessonCount; $i++)
 			{
-				echo "<a class=\"ui-btn\">";
-
-				// get .stat fileName
-				$fileName = $lessons_name[$i].".stat";
-				
-				// open or create file
-				$file = fopen($fileName, "c+") or die("<br>Die Datei kann nicht geöffnet werden!");
-
-				// get content
-				$string = fgets($file);
-	
-				if($string == "")
+				// don't print statistics if the lesson file was deleted
+				if(file_exists($lessons[$i]))
 				{
-					// write content
-					fwrite($file, "0;0");
+					echo "<a class=\"ui-btn\">";
 	
-					// print content
-					echo $lessons_name[$i].": richtig: 0, falsch: 0";
-				}
-				else
-				{
-					// seperate string
-					$line = explode(';', $string);
-				}
-				fclose($file);
+					// get .stat fileName
+					$fileName = $lessons_name[$i].".stat";
+					
+					// open or create file
+					$file = fopen($fileName, "c+") or die("<br>Die Datei kann nicht geöffnet werden!");
 
-				echo $lessons_name[$i].": Richtig ".$line[0]." / ".$line[1];
-				echo "</a>";
+					// get content
+					$string = fgets($file);
+	
+					if($string == "")
+					{
+						// write content
+						fwrite($file, "0;0");
+		
+						// print content
+						echo $lessons_name[$i].": richtig: 0, falsch: 0";
+					}
+					else
+					{
+						// seperate string
+						$line = explode(';', $string);
+					}
+					fclose($file);
+
+					echo $lessons_name[$i].": Richtig ".$line[0]." / ".$line[1];
+					echo "</a>";
+				}
 			}
 		?>
 
@@ -98,8 +100,7 @@
 				
 				<!-- Option 1 -->
 				<start>
-					<form action="startJQ.php" method="POST">
-						<input type="hidden" name="lesson" value="<?php echo $lesson;?>" />
+					<form action="startJQ.php">
 						<input type="submit" value="Auswahl" />
 					</form>
 				</start>

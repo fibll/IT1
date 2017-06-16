@@ -21,7 +21,7 @@
 
 		<!-- main content -->
 		<?php
-			// read info where it is coming from
+			// read in the chosen lesson
 			$from = $_POST["from"];
 			$lesson = $_POST["lesson"];
 
@@ -98,7 +98,7 @@
 		?>
 
 		<forward>
-			<form action="lessonsJQ.php" method="POST">
+			<form action="lessonsJQ.php?lesson=uploads/english.txt" method="POST">
 				<input type="hidden" name="lesson" value="<?php echo $lesson;?>" />
 				<input type="submit" value="Weiter" />
 			</form>
@@ -131,7 +131,6 @@
 				<!-- Option 3 -->
 				<setup>
 					<form action="setupJQ.php">
-						<input type="hidden" name="from" value="start">
 						<input type="submit" value="Setup" />
 					</form>
 				</setup>

@@ -31,6 +31,7 @@
 
 			if(strcmp($from, "setup") == 0)
 			{
+			
 				// Check if file already exists
 				if (file_exists($target_file)) {
 					echo "<br>Die Datei existiert bereits.";

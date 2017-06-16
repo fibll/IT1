@@ -18,46 +18,48 @@
 			<h1>Auswahl</h1>
 		</div>
 		<div data-role="main" class="ui-content">
-		
+		<div data-role="controlgroup" data-type="vertical">
+
 		<?php
 			// read info where it is coming from
 			$from = $_POST["from"];
 	
 			// get in uploaded lessons
-			$file = fopen("lessons.data", "r");	
+			$file = fopen("lessons.data", "c+");
 			$string = fgets($file);
 			
-			for($i = 0; !feof($file); $i++)
+			if($string == "")
 			{
-				// read in the ; seperated words			
-				$lessons[$i] = $string;
-				$lessons[$i] = str_replace("\n", "", $lessons[$i]);
-	
-				// get printing name
-				$lessons_name[$i] = str_replace(".txt", "", $lessons[$i]);
-				$lessons_name[$i] = str_replace("uploads/", "", $lessons_name[$i]);
-	
-				// get the next line
-				$string = fgets($file);
+				echo "<a class=\"ui-btn\">Keine Lektionen vorhanden</a>";
 			}
-		?>		
+			else
+			{
+				for($i = 0; !feof($file); $i++)
+				{
+					// read in the ; seperated words			
+					$lessons[$i] = $string;
+					$lessons[$i] = str_replace("\n", "", $lessons[$i]);
+		
+					// get printing name
+					$lessons_name[$i] = str_replace(".txt", "", $lessons[$i]);
+					$lessons_name[$i] = str_replace("uploads/", "", $lessons_name[$i]);
+	
+					// get the next line
+					$string = fgets($file);
+				}
 
-
-			<div data-role="controlgroup" data-type="vertical">
-
-		<?php
 				for($i = 0; $i < sizeof($lessons); $i++)
 				{
 					echo "
-						<form action=\"lessonsJQ.php\" method=\"POST\">
+						<form action=\"lessonsJQ.php?lesson=uploads/english.txt\" method=\"POST\">
 							<input type=\"hidden\" name=\"lesson\" value=\"".$lessons[$i]."\">
-							<input type=\"submit\" value=\"".$lessons_name[$i]."\" />
+							<input type=\"submit\" value=\"Lektion: ".$lessons_name[$i]."\">
 						</form>";
 				}
-			?>
+			}
+		?>
 
-
-			</div>
+		</div>
 		</div>
 
 			<!-- footer -->
