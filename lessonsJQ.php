@@ -27,7 +27,6 @@
 			$QNUM = 5;
 
 			// filename should be given by start
-			//$fileName = $_POST["fileName"];
 			$fileName = $_POST["lesson"];
 
 		// Check if file already exists
@@ -74,11 +73,7 @@
 				$rand_word = rand(0, sizeof($answers)-1 );
 			}
 
-			// print POST'ed data
-			//$player = $_POST["player"];
-			//echo $player;
-
-			// lesson name einfach als "fake" GET beim aufruf (aktion) anhängen ==================================================================================
+// ==================================================================================
 			/* ajax:
 				javascript benutzen:
 					+ xml http request stuff
@@ -122,19 +117,19 @@
 
 			if($fileContentOK == 1)
 			{
-				echo "<question>
+				echo "
+					<form method=\"POST\" action=\"resultJQ.php\">
+					<fieldset data-role=\"controlgroup\">
+						<legend>Was ist die korrekte Übersetzung für \"".$answers[$rand_word][0]."\"?</legend>";
+
+				/*
+				echo "
+					<question>
 						<p>Was ist die korrekte Übersetzung für \"".$answers[$rand_word][0]."\"?</p>
 					</question>
 					<form action=\"resultJQ.php?lesson=uploads/english.txt\" method=\"POST\">";
-				//<div data-role=\"controlgroup\" data-type=\"vertical\">";
-			
-					/*
-						echo "<div data-role=\"main\" class=\"ui-content\">
-							<form method=\"post\" action=\"/action_page_post.php\">
-							<fieldset data-role=\"controlgroup\">
-							<legend>Was ist die korrekte Übersetzung für \"".$answers[$rand_word][0]."\"?</legend>";
-					*/
 
+				*/
 
 				// get random value (no equal) into random variables
 				// bring in the correct answer
@@ -159,11 +154,20 @@
 					}
 			
 					// create radio options
+					echo "
+						<label for=\"poss".$i."\">".$answers[$random[$i]][1]."</label>
+							<input type=\"radio\" name=\"answer\" id=\"poss".$i."\" value=\"".$answers[$random[$i]][1]."\">";
+
+					/*
 					echo "<input type=\"radio\" name=\"answer\" value=\""
 						.$answers[$random[$i]][1]."\"> "
 						.$answers[$random[$i]][1]."<br>";
+					*/
 				}
 	
+				// end the radio
+				echo "</fieldset>";
+
 				// create forward button
 				//echo "</fieldset>
 					//	<input type=\"Senden\" data-inline=\"true\" value=\"Submit\">";
@@ -175,9 +179,9 @@
 					.$answers[$rand_word][0]."\">";
 	
 				echo "<input type=\"hidden\" name=\"lesson\" value=\"".$lesson."\" />";	
-				echo "<input type=\"submit\" value=\"Senden\" />";
-		
-	
+				//echo "<input type=\"submit\" value=\"Senden\" />";
+				echo "<input type=\"submit\" data-inline=\"true\" value=\"Senden\">";
+					
 				echo "</form>";
 			}
 			else

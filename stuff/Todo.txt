@@ -4,6 +4,7 @@ Todo:
 	// Punkt 9
 	// Punkt 3
 	// Nur 5 Antwort Möglichkeiten
++ Radio Buttons fixen
 + Umschaltung bei der Abfrage (Ajax)
 + Kontrolle auf html code in Dateinamen
 + Responsive design?
