@@ -1,0 +1,83 @@
+<html>
+	<head>
+		<meta charset = "UTF-8"/>
+
+		<!-- jQuery stuff -->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+		<link rel="stylesheet" href="../stylesheet.css">
+		<script src="../jquery1.js"></script>
+		<script src="../jquery2.js"></script>
+	</head>
+
+<body>
+
+<script>
+function showHint(str) 
+{
+	num = 0;
+
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function()
+	{
+		if (this.readyState == 4 && this.status == 200)
+		{
+			document.getElementById("asdf").innerHTML = this.responseText;
+		}
+	};
+		
+	xmlhttp.open("GET", "JS.php?q=" + str, true);
+	xmlhttp.send();
+}
+</script>
+
+
+<h2>My First Web Page</h2>
+<p>My First Paragraph.</p>
+
+
+<p id="asdf"></p>
+
+<script>
+	showHint(1);
+</script>
+
+
+	<div data-role="controlgroup" data-type="horizontal">
+		<a href="#" class="ui-btn ui-btn-up-c" onclick="showHint(1)">Button 1</a>
+		<a href="#" class="ui-btn" onclick="showHint(0)">Button 2</a>
+	</div>
+
+<!--
+<button type="button" onclick="document.getElementById('demo').innerHTML = Date()">
+Bla</button>
+-->
+
+<p id="demo"></p>
+
+</body>
+</html> 
+
+<!--
+<html>
+<head>
+
+</head>
+<body>
+
+<h2>My First JavaScript</h2>
+
+<script>
+	document.getElementById("asdf").innerHTML = 5 + 6;
+</script>
+
+<p id="asdf"></p>
+
+<button type="button" onclick="document.getElementById('demo').innerHTML = Date()">
+Bla</button>
+
+<p id="demo"></p>
+
+</body>
+</html>
+-->

@@ -20,7 +20,38 @@
 		<div data-role="main" class="ui-content">
 
 		<!-- main content -->
+
+		<!-- javascript -->
+		<script>
+		function showHint(str) 
+		{
+			num = 0;
+
+			var xmlhttp = new XMLHttpRequest();
+			xmlhttp.onreadystatechange = function()
+			{
+				if (this.readyState == 4 && this.status == 200)
+				{
+					var myObj = JSON.parse(this.responseText);
+					document.getElementById("q").innerHTML = myObj[0];
+					document.getElementById("a1").innerHTML = myObj[1];
+					document.getElementById("a2").innerHTML = myObj[2];
+					document.getElementById("a3").innerHTML = myObj[3];
+					document.getElementById("a4").innerHTML = myObj[4];
+					document.getElementById("a5").innerHTML = myObj[5];
+					document.getElementById("e").innerHTML = myObj[6];
+				}
+			};
+		
+			xmlhttp.open("GET", "switchLesson_works.php?m=" + str, true);
+			xmlhttp.send();
+		}
+		</script>
+
+
 		<?php
+
+/*
 			// read in the chosen lesson
 			$lesson = $_POST["lesson"];
 
@@ -42,6 +73,7 @@
 
 			$fileContentOK = 1;
 
+			// check input string for < and > characters
 			if(strpos($string, '<') !== false)
 				$fileContentOK = 0;
 
@@ -71,7 +103,7 @@
 				}
 	
 				$rand_word = rand(0, sizeof($answers)-1 );
-			}
+			}*/
 
 // ==================================================================================
 			/* ajax:
@@ -93,27 +125,32 @@
 				</div>
 				";
 			*/
-			?>
 
-<!--
-			<script>
-				var xmlhttp = new XMLHttpRequest();
-				xmlhttp.onreadystatechange = function()
-				{
-					/* Stuff that will be executed when php file returns */
-					if (this.readyState == 4 && this.status == 200)
-					{
-						document.getElementById("txtHint").innerHTML = this.responseText;
-					}
-				};
+	?>
 
-				xmlhttp.open("GET", "gethint.php?q=" + str, true);
-				xmlhttp.send();
-			</script>
+	
 
--->
-			<?php
+	<script>showHint(1);</script>
 
+	<div data-role="controlgroup" data-type="horizontal">
+		<a href="#" class="ui-btn ui-btn-up-c" onclick="showHint(1)">Button 1</a>
+		<a href="#" class="ui-btn" onclick="showHint(0)">Button 2</a>
+	</div>
+
+	<form method="POST" action="resultJQ.php">
+		<fieldset data-role="controlgroup">
+			<legend>
+				Was ist die korrekte Übersetzung für <p id="q" style="display:inline"></p>
+			</legend>
+
+	<label><p id="a1" style="display:inline"></p></label>
+	<input type="radio" name="answer" id="poss1" value="a1">
+	
+	<p id="e"></p>
+
+	
+	<?php
+/*	
 
 			if($fileContentOK == 1)
 			{
@@ -121,15 +158,6 @@
 					<form method=\"POST\" action=\"resultJQ.php\">
 					<fieldset data-role=\"controlgroup\">
 						<legend>Was ist die korrekte Übersetzung für \"".$answers[$rand_word][0]."\"?</legend>";
-
-				/*
-				echo "
-					<question>
-						<p>Was ist die korrekte Übersetzung für \"".$answers[$rand_word][0]."\"?</p>
-					</question>
-					<form action=\"resultJQ.php?lesson=uploads/english.txt\" method=\"POST\">";
-
-				*/
 
 				// get random value (no equal) into random variables
 				// bring in the correct answer
@@ -158,19 +186,10 @@
 						<label for=\"poss".$i."\">".$answers[$random[$i]][1]."</label>
 							<input type=\"radio\" name=\"answer\" id=\"poss".$i."\" value=\"".$answers[$random[$i]][1]."\">";
 
-					/*
-					echo "<input type=\"radio\" name=\"answer\" value=\""
-						.$answers[$random[$i]][1]."\"> "
-						.$answers[$random[$i]][1]."<br>";
-					*/
 				}
 	
 				// end the radio
 				echo "</fieldset>";
-
-				// create forward button
-				//echo "</fieldset>
-					//	<input type=\"Senden\" data-inline=\"true\" value=\"Submit\">";
 
 				echo "<input type=\"hidden\" name=\"solution\" value=\""
 					.$answers[$rand_word][1]."\">";
@@ -179,7 +198,6 @@
 					.$answers[$rand_word][0]."\">";
 	
 				echo "<input type=\"hidden\" name=\"lesson\" value=\"".$lesson."\" />";	
-				//echo "<input type=\"submit\" value=\"Senden\" />";
 				echo "<input type=\"submit\" data-inline=\"true\" value=\"Senden\">";
 					
 				echo "</form>";
@@ -191,6 +209,8 @@
 		}
 		else
 			echo "<br>Die Datei kann nicht geöffnet werden!";
+*/
+
 		?>	
 		
 

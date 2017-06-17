@@ -76,8 +76,9 @@
 
 				<!-- Option 2 -->
 				<setup>
-					<form action="setupJQ.php">
-						<input type="hidden" name="from" value="start">
+					<form action="setupJQ.php" method="GET">
+						<input type="hidden" name="a" value="Hallo">
+						<input type="hidden" name="b" value="Welt">
 						<input type="submit" value="Setup" />
 					</form>
 				</setup>

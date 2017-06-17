@@ -1,27 +1,20 @@
-<html>
+ <html>
 <head>
 <script>
-function showHint(str)
-{
-	if (str.length == 0)
-	{
-		document.getElementByld("txHint").innerHTML = "Write here";
-		return;
-	}
-	else
-	{
-		var xmlhttp = new XMLRequest();
-		xmlhttp.onreadystatechange = function()
-		{
-			if(this.readState == 4 && this.status == 200)
-			{
-				document.getElementByld("txtHint").innerHTML = this.responseText;
-			}
-		};
-		
-		xmlhttp.open("GET","gethint.php=q=" + str, true);
-		xmlhttp.send();
-	}
+function showHint(str) {
+    if (str.length == 0) {
+        document.getElementById("txtHint").innerHTML = "";
+        return;
+    } else {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("txtHint").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", "gethint.php?q=" + str, true);
+        xmlhttp.send();
+    }
 }
 </script>
 </head>
@@ -29,8 +22,8 @@ function showHint(str)
 
 <p><b>Start typing a name in the input field below:</b></p>
 <form>
-	First name: <input type="text" onkeyup="showHint(this.value)">
+First name: <input type="text" onkeyup="showHint(this.value)">
 </form>
-<p> Suggestions: <span id="txtHint"></span></p>
+<p>Suggestions: <span id="txtHint"></span></p>
 </body>
 </html>
