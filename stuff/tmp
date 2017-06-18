@@ -1,4 +1,4 @@
-<?php
+
 	// mode for questioning
 	$m = $_REQUEST["m"];
 	$translation = $m;
@@ -64,10 +64,12 @@
 
 			if($fileContentOK == 1)
 			{
-				$obj = array(9);
 				
-				$obj[0] = $answers[$rand_word][$origin];
-								
+				/*
+				$obj->question = "<form method=\"POST\" action=\"resultJQ.php\">
+					<fieldset data-role=\"controlgroup\">
+						<legend>Was ist die korrekte Übersetzung für \"".$answers[$rand_word][$origin]."\"?</legend>";
+				*/				
 	
 				/*
 				echo "
@@ -100,8 +102,10 @@
 					}
 			
 					// create radio options
-					$obj[$i + 1] = $answers[$random[$i]][$translation];
-					
+					/*
+					obj->ans[$i] = "<label for=\"poss".$i."\">".$answers[$random[$i]][$translation]."</label>
+							<input type=\"radio\" name=\"answer\" id=\"poss".$i."\" value=\"".$answers[$random[$i]][$translation]."\">";
+					*/
 
 					/*
 					echo "
@@ -112,9 +116,14 @@
 				}
 	
 				// end the radio
-				$obj[6] = $answers[$rand_word][$translation];
-				$obj[7] = $answers[$rand_word][$origin];
-				$obj[8] = $lesson;
+				/*
+				obj->end = "</fieldset>
+				<input type=\"hidden\" name=\"solution\" value=\"".$answers[$rand_word][$translation]."\">
+				<input type=\"hidden\" name=\"translation\" value=\"".$answers[$rand_word][$origin]."\">
+				<input type=\"hidden\" name=\"lesson\" value=\"".$lesson."\" />
+				<input type=\"submit\" data-inline=\"true\" value=\"Senden\">
+				</form>";
+				*/
 
 
 				/*
@@ -131,9 +140,12 @@
 					
 				echo "</form>";
 				*/
-				
-				$myJSON = json_encode($obj);
-				echo $myJSON;
+
+				//$myArray = array("John", "bla", "blub", "kram");
+				//$myObj->test = "John";
+				//$myJSON = json_encode($myArray);
+				//echo $myJSON;
+				//echo "bla";
 
 			}
 			else
@@ -144,4 +156,4 @@
 		else
 			//echo "<br>Die Datei kann nicht geöffnet werden!";
 
-?>
+

@@ -21,7 +21,7 @@
 
 		<!-- main content -->
 
-		<!-- javascript -->
+	<!-- javascript -->
 		<script>
 		function showHint(str) 
 		{
@@ -33,21 +33,39 @@
 				if (this.readyState == 4 && this.status == 200)
 				{
 					var myObj = JSON.parse(this.responseText);
+
+					// start the form
 					document.getElementById("q").innerHTML = myObj[0];
-					document.getElementById("a1").innerHTML = myObj[1];
-					document.getElementById("a2").innerHTML = myObj[2];
-					document.getElementById("a3").innerHTML = myObj[3];
-					document.getElementById("a4").innerHTML = myObj[4];
-					document.getElementById("a5").innerHTML = myObj[5];
-					document.getElementById("e").innerHTML = myObj[6];
+
+					// radio
+					document.getElementById("lab1").innerHTML = myObj[1];
+					document.getElementById("poss1").value = myObj[1];
+
+					document.getElementById("lab2").innerHTML = myObj[2];
+					document.getElementById("poss2").value = myObj[2];
+
+					document.getElementById("lab3").innerHTML = myObj[3];
+					document.getElementById("poss3").value = myObj[3];
+
+					document.getElementById("lab4").innerHTML = myObj[4];
+					document.getElementById("poss4").value = myObj[4];
+
+					document.getElementById("lab5").innerHTML = myObj[5];
+					document.getElementById("poss5").value = myObj[5];
+
+					// end
+					document.getElementById("e1").value = myObj[6];
+					document.getElementById("e2").value = myObj[7];
+					document.getElementById("e3").value = myObj[8];
+					
 				}
 			};
 		
-			xmlhttp.open("GET", "switchLesson_works.php?m=" + str, true);
+			xmlhttp.open("GET", "switchLesson_works1.php?m=" + str, true);
 			xmlhttp.send();
 		}
-		</script>
 
+		</script>
 
 		<?php
 
@@ -130,25 +148,46 @@
 
 	
 
-	<script>showHint(1);</script>
-
 	<div data-role="controlgroup" data-type="horizontal">
-		<a href="#" class="ui-btn ui-btn-up-c" onclick="showHint(1)">Button 1</a>
-		<a href="#" class="ui-btn" onclick="showHint(0)">Button 2</a>
+		<a href="#" class="ui-btn ui-btn-up-c" onclick="showHint(1)">Butt 1</a>
+		<a href="#" class="ui-btn" onclick="showHint(0)">Butt 2</a>
 	</div>
+
+
+	<!--<p id="q" style="display:inline"></p>-->
 
 	<form method="POST" action="resultJQ.php">
 		<fieldset data-role="controlgroup">
 			<legend>
-				Was ist die korrekte Übersetzung für <p id="q" style="display:inline"></p>
+				Was ist die korrekte Übersetzung für <p id="q" style="display:inline"></p>?
 			</legend>
 
-	<label><p id="a1" style="display:inline"></p></label>
-	<input type="radio" name="answer" id="poss1" value="a1">
-	
-	<p id="e"></p>
+	<label for="poss1" id="lab1"></label>
+	<input type="radio" name="answer" id="poss1" value="">
+
+	<label for="poss2" id="lab2"></label>
+	<input type="radio" name="answer" id="poss2" value="">
+
+	<label for="poss3" id="lab3"></label>
+	<input type="radio" name="answer" id="poss3" value="">
+
+	<label for="poss4" id="lab4"></label>
+	<input type="radio" name="answer" id="poss4" value="">
+
+	<label for="poss5" id="lab5"></label>
+	<input type="radio" name="answer" id="poss5" value="">
+
+	</fieldset>
+	<input type="hidden" name="solution" id="e1" value="">
+	<input type="hidden" name="translation" id="e2" value="">
+	<input type="hidden" name="lesson" id="e3" value="" />
+
+	<input type="submit" data-inline="true" value="Senden">
+	</form>
 
 	
+	<script>showHint(1);</script>
+
 	<?php
 /*	
 

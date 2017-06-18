@@ -64,9 +64,10 @@
 
 			if($fileContentOK == 1)
 			{
-				$obj = array(9);
-				
-				$obj[0] = $answers[$rand_word][$origin];
+				$ob = array("");
+				$ob[0] = $ob[0]."<form method=\"POST\" action=\"resultJQ.php\">
+					<fieldset data-role=\"controlgroup\">
+						<legend>Was ist die korrekte Übersetzung für \"".$answers[$rand_word][$origin]."\"?</legend>";
 								
 	
 				/*
@@ -100,7 +101,9 @@
 					}
 			
 					// create radio options
-					$obj[$i + 1] = $answers[$random[$i]][$translation];
+					$ob[0] = $ob[0]."<label for=\"poss".$i."\">".$answers[$random[$i]][$translation]."</label>
+							<input type=\"radio\" name=\"answer\" id=\"poss".$i."\" value=\"".$answers[$random[$i]][$translation]."\">";
+					
 					
 
 					/*
@@ -112,10 +115,13 @@
 				}
 	
 				// end the radio
-				$obj[6] = $answers[$rand_word][$translation];
-				$obj[7] = $answers[$rand_word][$origin];
-				$obj[8] = $lesson;
-
+				$ob[0] = $ob[0]."</fieldset>
+				<input type=\"hidden\" name=\"solution\" value=\"".$answers[$rand_word][$translation]."\">
+				<input type=\"hidden\" name=\"translation\" value=\"".$answers[$rand_word][$origin]."\">
+				<input type=\"hidden\" name=\"lesson\" value=\"".$lesson."\" />
+				<input type=\"submit\" data-inline=\"true\" value=\"Senden\">
+				</form>";
+				
 
 				/*
 				echo "</fieldset>";
@@ -132,7 +138,7 @@
 				echo "</form>";
 				*/
 				
-				$myJSON = json_encode($obj);
+				$myJSON = json_encode($ob);
 				echo $myJSON;
 
 			}
