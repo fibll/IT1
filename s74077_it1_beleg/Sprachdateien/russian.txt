@@ -1,0 +1,11 @@
+Haus;дом
+Tisch;стол
+Lampe;ла́мпа
+Hund;соба́ка
+Flasche;буты́лка
+Haustier;дома́шнее живо́тное
+Universität;университе́т
+Gabel;ви́лка
+Stuhl;стул
+Baum;окамене́лое де́рево
+trinken;пить

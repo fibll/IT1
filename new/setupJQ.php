@@ -27,36 +27,28 @@
 			// read info where it is coming from
 			$from = $_POST["from"];
 		
-			// get uploaded file name
 			$target_dir = "";//uploads/";
 			$target_file = $target_dir . basename($_FILES["fileToUpload"]	["name"]);
-
 			$uploadOk = 1;
-
-			// if there are html tag close stuff in the name replace the name with err			
-			if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $target_file))
-			{
-				// one or more of the 'special characters' found in $string
-				$target_file = "err";
-				echo "<br>Im Dateinamen befinden sich unzulässige Zeichen.";
-				$uploadOk = 0;
-			}
-			
-
-			
-			$fileType = pathinfo($target_file,PATHINFO_EXTENSION);
+			$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
 			if(strcmp($from, "setup") == 0)
 			{
 			
-				// Check if the file already exists
+				// Check if file already exists
 				if (file_exists($target_file)) {
 					echo "<br>Die Datei existiert bereits.";
 					$uploadOk = 0;
 				}
+
+				// Check file size
+				if ($_FILES["fileToUpload"]["size"] > 500000) {
+					echo "<br>Datei ist zu groß.";
+					$uploadOk = 0;
+				}
 		
-				//  check if the ending of the file is txt
-				if($fileType != "txt") {
+				// Allow certain file formats
+				if($imageFileType != "txt") {
 					echo "<br>Die Dateiendung muss txt sein.";
 					$uploadOk = 0;
 				}
@@ -69,8 +61,6 @@
 				} 
 				else 
 				{
-
-					// move the uploaded file to the servers filesystem
 					if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file))
 					{
 						echo "<br>Die Datei ". basename( $_FILES["fileToUpload"]["name"]). " wurde hochgeladen.";
@@ -80,6 +70,18 @@
 						fwrite($file, $target_file."\n");
 						fclose($file);
 
+						/*
+						// write into statistic file
+						// get .stat fileName
+						$lessons_name = str_replace(".txt", "", $lesson);
+						$lessons_name = str_replace("uploads/", "", $lessons_name);
+						$fileName = $lessons_name.".stat";
+			
+						// open file
+						$file = fopen($fileName, "c+") or die("<br>Die Datei kann nicht geöffnet werden!");
+						fwrite($file, $target_file.";0;0\n");
+						fclose($file);
+						*/
 					} 
 					else 
 					{

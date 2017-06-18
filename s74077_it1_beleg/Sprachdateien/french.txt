@@ -1,0 +1,17 @@
+Hallo;Allô
+Bart;la barbe
+Haus;la maison
+Wasser;l'eau
+Freiheit;la liberté
+Natur;le naturel
+Tisch;la casserole
+Löffel;la cuillère
+Gewürze;l'épice
+Mensch;l'homme
+Fuß;le pied
+Ball;le pied
+laufen;aller
+spielen;affecter
+Teller;l'assiette
+Kabel;le fil
+Hund;le chien

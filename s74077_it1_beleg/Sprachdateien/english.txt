@@ -1,0 +1,11 @@
+Hund;dog
+Katze;cat
+Hase;rabbit
+Kuh;cow
+Tiger;tiger
+Bär;bear
+Elefant;elefant
+Ente;duck
+Hirsch;deer
+Adler;eagle
+Vogel;bird

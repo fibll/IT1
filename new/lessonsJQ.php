@@ -85,23 +85,18 @@
 						// radio
 						document.getElementById("lab1").innerHTML = "error";
 						document.getElementById("poss1").value = myObj[1];
-						document.getElementById("poss1").type = "hidden";
 	
 						document.getElementById("lab2").innerHTML = "error";
 						document.getElementById("poss2").value = myObj[2];
-						document.getElementById("poss2").type = "hidden";
 	
 						document.getElementById("lab3").innerHTML = "error";
 						document.getElementById("poss3").value = myObj[3];
-						document.getElementById("poss3").type = "hidden";
 	
 						document.getElementById("lab4").innerHTML = "error";
 						document.getElementById("poss4").value = myObj[4];
-						document.getElementById("poss4").type = "hidden";
 	
 						document.getElementById("lab5").innerHTML = "error";
 						document.getElementById("poss5").value = myObj[5];	
-						document.getElementById("poss5").type = "hidden";						
 
 					}
 					else
@@ -114,24 +109,20 @@
 						// radio
 						document.getElementById("lab1").innerHTML = "error";
 						document.getElementById("poss1").value = myObj[1];
-						document.getElementById("poss1").type = "hidden";
 	
 						document.getElementById("lab2").innerHTML = "error";
 						document.getElementById("poss2").value = myObj[2];
-						document.getElementById("poss2").type = "hidden";
 	
 						document.getElementById("lab3").innerHTML = "error";
 						document.getElementById("poss3").value = myObj[3];
-						document.getElementById("poss3").type = "hidden";
 	
 						document.getElementById("lab4").innerHTML = "error";
 						document.getElementById("poss4").value = myObj[4];
-						document.getElementById("poss4").type = "hidden";
 	
 						document.getElementById("lab5").innerHTML = "error";
 						document.getElementById("poss5").value = myObj[5];	
-						document.getElementById("poss5").type = "hidden";
 					}
+
 				}
 			};
 		

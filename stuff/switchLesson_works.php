@@ -14,10 +14,14 @@
 	// array for data transfer back to the lesson file
 	$obj = array(11);
 
-	$QNUM = 5;
 
-	// filename should be given by start
-	$fileName = $lesson;
+			// read in the chosen lesson
+			//$lesson = "uploads/english.txt";//$_REQUEST["lesson"];
+
+			$QNUM = 5;
+
+			// filename should be given by start
+			$fileName = $lesson;	//"uploads/english.txt";
 
 		// Check if file already exists
 		if (file_exists($fileName)) 
@@ -68,6 +72,14 @@
 			if($fileContentOK == 1)
 			{				
 				$obj[0] = $answers[$rand_word][$origin];
+								
+	
+				/*
+				echo "
+					<form method=\"POST\" action=\"resultJQ.php\">
+					<fieldset data-role=\"controlgroup\">
+						<legend>Was ist die korrekte Übersetzung für \"".$answers[$rand_word][$origin]."\"?</legend>";
+				*/
 
 
 				// get random value (no equal) into random variables
@@ -94,6 +106,13 @@
 			
 					// create radio options
 					$obj[$i + 1] = $answers[$random[$i]][$translation];
+					
+
+					/*
+					echo "
+						<label for=\"poss".$i."\">".$answers[$random[$i]][$translation]."</label>
+							<input type=\"radio\" name=\"answer\" id=\"poss".$i."\" value=\"".$answers[$random[$i]][$translation]."\">";
+					*/
 
 				}
 	
@@ -104,6 +123,21 @@
 				$obj[9] = $m;
 				$obj[10] = 0;
 
+
+				/*
+				echo "</fieldset>";
+
+				echo "<input type=\"hidden\" name=\"solution\" value=\""
+					.$answers[$rand_word][$translation]."\">";
+	
+				echo "<input type=\"hidden\" name=\"translation\" value=\""
+					.$answers[$rand_word][$origin]."\">";
+	
+				echo "<input type=\"hidden\" name=\"lesson\" value=\"".$lesson."\" />";	
+				echo "<input type=\"submit\" data-inline=\"true\" value=\"Senden\">";
+					
+				echo "</form>";
+				*/
 
 			}
 			else
