@@ -21,9 +21,12 @@
 
 		<!-- main content -->
 
-	<!-- javascript -->
+		<!-- javascript -->
 		<script>
-		function showHint(str) 
+		var mode = 1;
+
+		// function for the ajax call
+		function showHint(str, lesson) 
 		{
 			num = 0;
 
@@ -34,134 +37,146 @@
 				{
 					var myObj = JSON.parse(this.responseText);
 
-					// start the form
-					document.getElementById("q").innerHTML = myObj[0];
+					var ok = myObj[10];
 
-					// radio
-					document.getElementById("lab1").innerHTML = myObj[1];
-					document.getElementById("poss1").value = myObj[1];
+					// was there an error getting the words?
+					if(ok == 0)
+					{
+						// error field
+						document.getElementById("err").innerHTML = "";		
 
-					document.getElementById("lab2").innerHTML = myObj[2];
-					document.getElementById("poss2").value = myObj[2];
+						// start the form
+						document.getElementById("q").innerHTML = myObj[0];
 
-					document.getElementById("lab3").innerHTML = myObj[3];
-					document.getElementById("poss3").value = myObj[3];
+						// radio
+						document.getElementById("lab1").innerHTML = myObj[1];
+						document.getElementById("poss1").value = myObj[1];
+	
+						document.getElementById("lab2").innerHTML = myObj[2];
+						document.getElementById("poss2").value = myObj[2];
+	
+						document.getElementById("lab3").innerHTML = myObj[3];
+						document.getElementById("poss3").value = myObj[3];
+	
+						document.getElementById("lab4").innerHTML = myObj[4];
+						document.getElementById("poss4").value = myObj[4];
+	
+						document.getElementById("lab5").innerHTML = myObj[5];
+						document.getElementById("poss5").value = myObj[5];
+	
+						// end
+						document.getElementById("e1").value = myObj[6];
+						document.getElementById("e2").value = myObj[7];
+						document.getElementById("e3").value = myObj[8];
+	
+						// mode for POST
+						document.getElementById("postMode").value = myObj[9];
+					}
+					else if(ok == 1)
+					{
+						document.getElementById("send").type = "hidden";
 
-					document.getElementById("lab4").innerHTML = myObj[4];
-					document.getElementById("poss4").value = myObj[4];
+						// error field
+						document.getElementById("err").innerHTML = "<br>In der Lektionsdatei befinden sich Zeichen die nicht zulässig sind!<br>";	
 
-					document.getElementById("lab5").innerHTML = myObj[5];
-					document.getElementById("poss5").value = myObj[5];
+						// radio
+						document.getElementById("lab1").innerHTML = "error";
+						document.getElementById("poss1").value = myObj[1];
+	
+						document.getElementById("lab2").innerHTML = "error";
+						document.getElementById("poss2").value = myObj[2];
+	
+						document.getElementById("lab3").innerHTML = "error";
+						document.getElementById("poss3").value = myObj[3];
+	
+						document.getElementById("lab4").innerHTML = "error";
+						document.getElementById("poss4").value = myObj[4];
+	
+						document.getElementById("lab5").innerHTML = "error";
+						document.getElementById("poss5").value = myObj[5];	
 
-					// end
-					document.getElementById("e1").value = myObj[6];
-					document.getElementById("e2").value = myObj[7];
-					document.getElementById("e3").value = myObj[8];
-					
+					}
+					else
+					{
+						document.getElementById("send").type = "hidden";
+
+						// error field
+						document.getElementById("err").innerHTML = "<br>Die Datei kann nicht geöffnet werden!<br>";	
+
+						// radio
+						document.getElementById("lab1").innerHTML = "error";
+						document.getElementById("poss1").value = myObj[1];
+	
+						document.getElementById("lab2").innerHTML = "error";
+						document.getElementById("poss2").value = myObj[2];
+	
+						document.getElementById("lab3").innerHTML = "error";
+						document.getElementById("poss3").value = myObj[3];
+	
+						document.getElementById("lab4").innerHTML = "error";
+						document.getElementById("poss4").value = myObj[4];
+	
+						document.getElementById("lab5").innerHTML = "error";
+						document.getElementById("poss5").value = myObj[5];	
+					}
+
 				}
 			};
 		
-			xmlhttp.open("GET", "switchLesson_works1.php?m=" + str, true);
+			xmlhttp.open("GET", "switchLesson_works.php?m=" + str + "&lesson=" + lesson, true);
 			xmlhttp.send();
 		}
-
 		</script>
 
-		<?php
 
-/*
-			// read in the chosen lesson
-			$lesson = $_POST["lesson"];
+	<?php
+		// get post variables
 
-			$QNUM = 5;
+		$lesson = $_POST["lesson"];
+		$mode = $_POST["mode"];
 
-			// filename should be given by start
-			$fileName = $_POST["lesson"];
-
-		// Check if file already exists
-		if (file_exists($fileName)) 
+		// if no mode was given so far, set mode to 1
+		if($mode == "")
 		{
+			$mode = 1;
+		}
 
-			// open file
-			$file = fopen($fileName, "r");		
-		
-			// get first line
-			$string = fgets($file);
-
-
-			$fileContentOK = 1;
-
-			// check input string for < and > characters
-			if(strpos($string, '<') !== false)
-				$fileContentOK = 0;
-
-			for($i = 0; !feof($file) && $fileContentOK == 1; $i++)
-			{
-				// read in the ; seperated words			
-				$answers[$i] = explode(';', $string);
-	
-				// get the next line
-				$string = fgets($file);
-
-				if(strpos($string, '<') !== false)
-				{
-					$fileContentOK = 0;
-				}
-			}		
-	
-			fclose($file);
-	
-			if($fileContentOK == 1)
-			{			
-			// define random variables
-				$random = array($QNUM);
-				for($i = 0; $i < $QNUM; $i++)
-				{
-					$random[$i] = -1;
-				}
-	
-				$rand_word = rand(0, sizeof($answers)-1 );
-			}*/
-
-// ==================================================================================
-			/* ajax:
-				javascript benutzen:
-					+ xml http request stuff
-					+ onreadystatechange = 'function{}', dort den Code für die Antwort der aufgerufenen php seite schreiben 
-					+ für Aufruf, open() und send()
-			*/	
+		// get .stat fileName
+		$lessons_name = str_replace(".txt", "", $lesson);
+		$lessons_name = str_replace("uploads/", "", $lessons_name);
 
 
-			// Question
-			
-			/*
-				// Switch Button
-				echo "
-				<div data-role=\"controlgroup\" data-type=\"horizontal\">
-  					<a href=\"#\" class=\"ui-btn ui-btn-up-c\">Button 1</a>
-  					<a href=\"#\" class=\"ui-btn\">Button 2</a>
-				</div>
-				";
-			*/
-
-	?>
-
+		// get the php vars 'lesson' and 'mode' into js vars cause js can't read in POST's
+		echo "<script>";
+		echo "var lesson = " . json_encode($lesson) . ";";
+		echo "mode = " . json_encode($mode) . ";";
+		echo "showHint(mode, lesson);";
+		echo "</script>";
+	?>	
 	
 
+	<!-- Error message -->
+	<p id="err" style="display:inline"></p>
+	
+
+	<!-- switch words buttons -->
 	<div data-role="controlgroup" data-type="horizontal">
-		<a href="#" class="ui-btn ui-btn-up-c" onclick="showHint(1)">Butt 1</a>
-		<a href="#" class="ui-btn" onclick="showHint(0)">Butt 2</a>
+		<a href="#" class="ui-btn ui-btn-up-c" onclick="showHint(1, lesson)">
+			<?php echo "Deutsch -> ".$lessons_name; ?>
+		</a>
+		<a href="#" class="ui-btn" onclick="showHint(0, lesson)">
+			<?php echo $lessons_name." -> Deutsch"; ?>
+		</a>
 	</div>
 
-
-	<!--<p id="q" style="display:inline"></p>-->
-
+	<!-- start Radio with question -->
 	<form method="POST" action="resultJQ.php">
 		<fieldset data-role="controlgroup">
 			<legend>
 				Was ist die korrekte Übersetzung für <p id="q" style="display:inline"></p>?
 			</legend>
 
+	<!-- radio options -->
 	<label for="poss1" id="lab1"></label>
 	<input type="radio" name="answer" id="poss1" value="">
 
@@ -181,79 +196,10 @@
 	<input type="hidden" name="solution" id="e1" value="">
 	<input type="hidden" name="translation" id="e2" value="">
 	<input type="hidden" name="lesson" id="e3" value="" />
+	<input type="hidden" name="mode" id="postMode" value=""/>
 
-	<input type="submit" data-inline="true" value="Senden">
+	<input type="submit" data-inline="true" id="send" value="Senden">
 	</form>
-
-	
-	<script>showHint(1);</script>
-
-	<?php
-/*	
-
-			if($fileContentOK == 1)
-			{
-				echo "
-					<form method=\"POST\" action=\"resultJQ.php\">
-					<fieldset data-role=\"controlgroup\">
-						<legend>Was ist die korrekte Übersetzung für \"".$answers[$rand_word][0]."\"?</legend>";
-
-				// get random value (no equal) into random variables
-				// bring in the correct answer
-				$random[rand(0,$QNUM-1)] = $rand_word;
-	
-
-				// fill the other with other answers
-				for($i = 0; $i < $QNUM; $i++)
-				{
-					while($random[$i] == -1)
-					{
-						$random[$i] = rand(0,sizeof($answers) - 1);
-	
-						// check if the number is already used
-						for($j = 0; $j < $i; $j++)
-						{
-							if(($random[$i] == $random[$j] && $i != $j) || $random[$i] == $rand_word)
-							{
-								$random[$i] = -1;
-							}
-						}
-					}
-			
-					// create radio options
-					echo "
-						<label for=\"poss".$i."\">".$answers[$random[$i]][1]."</label>
-							<input type=\"radio\" name=\"answer\" id=\"poss".$i."\" value=\"".$answers[$random[$i]][1]."\">";
-
-				}
-	
-				// end the radio
-				echo "</fieldset>";
-
-				echo "<input type=\"hidden\" name=\"solution\" value=\""
-					.$answers[$rand_word][1]."\">";
-	
-				echo "<input type=\"hidden\" name=\"translation\" value=\""
-					.$answers[$rand_word][0]."\">";
-	
-				echo "<input type=\"hidden\" name=\"lesson\" value=\"".$lesson."\" />";	
-				echo "<input type=\"submit\" data-inline=\"true\" value=\"Senden\">";
-					
-				echo "</form>";
-			}
-			else
-			{
-				echo "In der Lektionsdatei befindet sich Zeichen die nicht zulässig sind!<br>";
-			}
-		}
-		else
-			echo "<br>Die Datei kann nicht geöffnet werden!";
-*/
-
-		?>	
-		
-
-
 		</div>
 
 			<!-- footer -->
@@ -261,8 +207,7 @@
 
 				<!-- Option 1 -->
 				<start>
-					<form action="startJQ.php" method="POST">
-						<input type="hidden" name="lesson" value="<?php echo $lesson;?>" />
+					<form action="startJQ.php">
 						<input type="submit" value="Auswahl" />
 					</form>
 				</start>

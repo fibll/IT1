@@ -68,7 +68,13 @@
 						fclose($file);
 
 						// write into statistic file
-						$file = fopen("statistic.data", "a") or die("<br>Die Statistik-Datei kann nicht geöffnet werden!");
+						// get .stat fileName
+						$lessons_name = str_replace(".txt", "", $lesson);
+						$lessons_name = str_replace("uploads/", "", $lessons_name);
+						$fileName = $lessons_name.".stat";
+			
+						// open file
+						$file = fopen($fileName, "c+") or die("<br>Die Datei kann nicht geöffnet werden!");
 						fwrite($file, $target_file.";0;0\n");
 						fclose($file);
 					} 
@@ -80,16 +86,14 @@
 			}
 		?>		
 
+		</div>
 
-		<!-- Upload visual elements --><br><br>
-		<form action="setupJQ.php" method="post" enctype="multipart/form-data">
+		<form action="setupJQ.php" method="post" data-ajax="false" enctype="multipart/form-data">
 			Datei zum Hochladen wählen:
 			<input type="file" name="fileToUpload" id="fileToUpload">
 			<input type="hidden" name="from" value="setup">
 			<input type="submit" value="Datei hochladen" name="submit">
 		</form>
-
-		</div>
 
 			<!-- footer -->
 			<div data-role="footer"><div data-role="navbar"><ul><li>

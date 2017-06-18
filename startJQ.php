@@ -53,6 +53,7 @@
 					echo "
 						<form action=\"lessonsJQ.php?lesson=uploads/english.txt\" method=\"POST\">
 							<input type=\"hidden\" name=\"lesson\" value=\"".$lessons[$i]."\">
+							<input type=\"hidden\" name=\"mode\" value=\"\" />
 							<input type=\"submit\" value=\"Lektion: ".$lessons_name[$i]."\">
 						</form>";
 				}
@@ -76,9 +77,7 @@
 
 				<!-- Option 2 -->
 				<setup>
-					<form action="setupJQ.php" method="GET">
-						<input type="hidden" name="a" value="Hallo">
-						<input type="hidden" name="b" value="Welt">
+					<form action="setupJQ.php">
 						<input type="submit" value="Setup" />
 					</form>
 				</setup>

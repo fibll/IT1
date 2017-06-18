@@ -1,8 +1,6 @@
 <?php
 	// mode for questioning
 	$m = $_REQUEST["m"];
-	$lesson = $_REQUEST["lesson"];
-
 	$translation = $m;
 
 	if($m == "0")
@@ -10,18 +8,13 @@
 	else
 		$origin = 0;	
 
-
-	// array for data transfer back to the lesson file
-	$obj = array(11);
-
-
 			// read in the chosen lesson
-			//$lesson = "uploads/english.txt";//$_REQUEST["lesson"];
+			$lesson = "uploads/english.txt";//$_REQUEST["lesson"];
 
 			$QNUM = 5;
 
 			// filename should be given by start
-			$fileName = $lesson;	//"uploads/english.txt";
+			$fileName = "uploads/english.txt";
 
 		// Check if file already exists
 		if (file_exists($fileName)) 
@@ -70,7 +63,9 @@
 			
 
 			if($fileContentOK == 1)
-			{				
+			{
+				$obj = array(9);
+				
 				$obj[0] = $answers[$rand_word][$origin];
 								
 	
@@ -120,8 +115,6 @@
 				$obj[6] = $answers[$rand_word][$translation];
 				$obj[7] = $answers[$rand_word][$origin];
 				$obj[8] = $lesson;
-				$obj[9] = $m;
-				$obj[10] = 0;
 
 
 				/*
@@ -138,22 +131,17 @@
 					
 				echo "</form>";
 				*/
+				
+				$myJSON = json_encode($obj);
+				echo $myJSON;
 
 			}
 			else
 			{
 				//echo "In der Lektionsdatei befindet sich Zeichen die nicht zulässig sind!<br>";
-				$obj[10] = 1;
 			}
 		}
 		else
 			//echo "<br>Die Datei kann nicht geöffnet werden!";
-			$obj[10] = 2;
-
-		
-		
-		$myJSON = json_encode($obj);
-		echo $myJSON;
-
 
 ?>
